@@ -17,10 +17,12 @@
 				controlSize = controlValues.size;
 				if (offset < controlSize) {
 					controlValues[offset] = value;
+					nodeMap.set(*[key, controlValues]);
 					msg.add(key).add(controlValues);
 				}
 			};
 		});
+		"nodeMap after: %\n".postf(nodeMap);
 		if(this.isPlaying) {
 			server.sendBundle(server.latency, [15, group.nodeID] ++ msg.asOSCArgArray);
 		}

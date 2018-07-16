@@ -17,3 +17,4 @@ TestNodeProxySeti : UnitTest {
 		this.assertEquals(keysValues[0][1][2], 212, "arg 'freq' should have been set to 212 for the third channel in NodeProxy 'proxy'.");
 		this.assertEquals(keysValues[1][1][1], 0.5pi, "arg 'phase' should have been set to 0.5pi for the second channel in NodeProxy 'proxy'.");
 	}
+}

@@ -22,4 +22,8 @@
 			server.sendBundle(server.latency, [15, group.nodeID] ++ msg.asOSCArgArray);
 		}
 	}
+
+	*test_seti {
+		TestNodeProxySeti.runTest("TestNodeProxySeti:test_seti");
+	}
 }

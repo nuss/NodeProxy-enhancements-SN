@@ -1,6 +1,7 @@
 +NodeProxy {
 	seti { arg ... args; // pairs of keys or indices and value
 		var msg = Array.new(args.size div: 3 * 2);
+		// "seti args: %\n".postf(args);
 		forBy(0, args.size-1, 3, { |i|
 			var key = args[i], offset = args[i+1], value = args[i+2];
 			var hasControlKey = this.controlKeys.includes(key);

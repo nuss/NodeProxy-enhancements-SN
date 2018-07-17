@@ -10,7 +10,9 @@ NodeProxyPatternSeti {
 					Pbindf(
 						pattern,
 						\play, Pfunc { |e| args.do { |n|
-							proxy.seti(n, e.channelOffset, e[n])
+							e[n] !? {
+								proxy.seti(n, e.channelOffset, e[n])
+							}
 						}}
 					)
 				).buildForProxy(proxy, channelOffset, index)

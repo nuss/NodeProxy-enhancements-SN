@@ -26,7 +26,7 @@ SNNodeProxyRoles {
 		AbstractPlayControl.proxyControlClasses.put(\setp, StreamControl);
 		AbstractPlayControl.buildMethods.put(\setp,
 			#{ |pattern, proxy, channelOffset = 0, index|
-				var subMsg, id, dur, synthDef, args;
+				var subMsg, id, synthDef, args;
 				args = pattern.patternpairs.asEvent.keys.asArray;
 				if (pattern.class == Pbind) {
 					Pbindf(
@@ -42,7 +42,6 @@ SNNodeProxyRoles {
 								} {
 									id = 0;
 								};
-								dur = e.dur;
 								args.do { |n|
 									s.sendMsg('/n_set', id, n, e[n])
 								}

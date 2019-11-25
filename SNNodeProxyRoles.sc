@@ -21,49 +21,34 @@ SNNodeProxyRoles {
 			}
 		);
 
+		// manipulate nodes (grains) generated through a pattern (a Pbind) embedded in a NodeProxy
+		// pattern in NodeProxy will not be traceable!!
 		AbstractPlayControl.proxyControlClasses.put(\setp, StreamControl);
 		AbstractPlayControl.buildMethods.put(\setp,
 			#{ |pattern, proxy, channelOffset = 0, index|
-				var subMsg, id, synthDef, args;
+				var subMsg, id, dur, synthDef, args;
 				args = pattern.patternpairs.asEvent.keys.asArray;
 				if (pattern.class == Pbind) {
-					// OSCFunc({ |msg|
-					// 	var subMsg = msg[(msg.size - (3 * 5))..msg.size-1];
-					// 	id = subMsg[e.channelOffset * 3].postln;
-					// 	// synthDef = subMsg[e.channelOffset * 3 + 2].postln;
-					// }, '/g_queryTree.reply').oneShot;
-					// Pchain(
-						Pbindf(
-							pattern,
-							\type, \set,
-							\args, args,
-							\play, Pfunc { |e|
-								e.postln;
-								s.sendMsg('/g_queryTree', proxy.group.nodeID);
-								OSCFunc({ |msg|
-									var subMsg = msg[(msg.size - (3 * 5))..msg.size-1];
-									msg.postln;
+					Pbindf(
+						pattern,
+						\type, \set,
+						\args, args,
+						\play, Pfunc { |e|
+							s.sendMsg('/g_queryTree', proxy.group.nodeID);
+							OSCFunc({ |msg|
+								var subMsg = msg[(msg.size - (3 * 5))..msg.size-1];
+								if (e.channelOffset.notNil) {
 									id = subMsg[e.channelOffset * 3];
-									// synthDef = subMsg[e.channelOffset * 3 + 2].postln;
-								}, '/g_queryTree.reply').oneShot;
+								} {
+									id = 0;
+								};
+								dur = e.dur;
 								args.do { |n|
-									s.sendMsg('/n_set', id.postln, n, e[n])
+									s.sendMsg('/n_set', id, n, e[n])
 								}
-							},
-							\id, id,
-						).trace.buildForProxy(proxy, channelOffset, index)
-					// Pfunc { |e|
-					// e.postln;
-					// s.sendMsg('/g_queryTree', proxy.group.nodeID);
-					// OSCFunc({ |msg|
-					// var subMsg = msg[(msg.size - (3 * 5))..msg.size-1];
-					// msg.postln;
-					// id = subMsg[e.channelOffset * 3];
-					// synthDef = subMsg[e.channelOffset * 3 + 2].postln;
-			// }, '/g_queryTree.reply').oneShot;
-					// nil
-				// }
-				// ).buildForProxy(proxy, channelOffset, index)
+							}, '/g_queryTree.reply').oneShot;
+						},
+					).buildForProxy(proxy, channelOffset, index)
 				}
 			}
 		)

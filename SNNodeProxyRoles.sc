@@ -2,7 +2,7 @@ SNNodeProxyRoles {
 	*initClass {
 		Class.initClassTree(AbstractPlayControl);
 
-		// seti role
+		// seti role: set controls for a specific channel in a multi channel NodeProxy
 		AbstractPlayControl.proxyControlClasses.put(\seti, StreamControl);
 		AbstractPlayControl.buildMethods.put(\seti,
 			#{ |pattern, proxy, channelOffset = 0, index|
@@ -36,7 +36,9 @@ SNNodeProxyRoles {
 						\play, Pfunc { |e|
 							s.sendMsg('/g_queryTree', proxy.group.nodeID);
 							OSCFunc({ |msg|
-								var subMsg = msg[(msg.size - (3 * 5))..msg.size-1];
+								// slots 0-3 contain the command name and info on the group itself
+								// we only need to know the ids of the synths within the group
+								var subMsg = msg[4..];
 								if (e.channelOffset.notNil) {
 									id = subMsg[e.channelOffset * 3];
 								} {

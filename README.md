@@ -1,4 +1,4 @@
-# NodeProxy-enhancements
+# NodeProxy enhancements
 some additional NodeProxy methods
 
 Add a method 'seti' to NodeProxy, allowing to set an arg for a single channel in a multichannel NodeProxy:
@@ -13,11 +13,11 @@ Ndef(\multichannel, {
 Ndef(\multichannel).getKeysValues;
 // [ [ freq, [ 220, 220, 220, 220, 220 ] ] ] -> freq in all 5 channels set to 220
 
-// set the third channel's freq to 330
-Ndef(\multichannel).seti(\freq, 2, 330);
+// set the first and third channel's freq to 330 and 234
+Ndef(\multichannel).seti(\freq, [0, 2], [330, 234]);
 
 Ndef(\multichannel).getKeysValues;
-// [ [ freq, [ 220, 220, 330, 220, 220 ] ] ] -> freq in third channel set to 330
+// [ [ freq, [ 330, 220, 234, 220, 220 ] ] ]
 ```
 ## an additional NodeProxy role
 This NodeProxy role allows you to set args for each channel individally with an individual timing

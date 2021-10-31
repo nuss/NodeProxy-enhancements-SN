@@ -1,0 +1,8 @@
+(
+name: "NodeProxy enhancements",
+summary: "a 'seti' method for NodeProxy and NodeProxy roles",
+version: "0.0.1",
+schelp: "NodeProxy enhancements",
+license: "GPL3",
+copyright: "Stefan Nussbaumer"
+)

@@ -1,4 +1,4 @@
-SNNodeProxyRoles {
+NodeProxyRolesSN {
 	*initClass {
 		Class.initClassTree(AbstractPlayControl);
 

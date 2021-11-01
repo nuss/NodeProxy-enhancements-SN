@@ -15,15 +15,13 @@ Discussion::
 code::
 // 5 channel NodeProxy, for convenience initialized in an Ndef
 (
-s.waitForBoot {
-	Ndef(\sin).mold(5, \audio, \elastic);
-	Ndef(\sin)[0] = {
-		SinOsc.ar(
-			\freq.kr([200, 201, 202, 204, 205]),
-			SinOsc.kr(\phase.kr([0, 0, 0, 0, 0])).range(0, 2pi)
-		)
-	}
-};
+Ndef(\sin).mold(5, \audio, \elastic);
+Ndef(\sin)[0] = {
+	SinOsc.ar(
+		\freq.kr([200, 201, 202, 204, 205]),
+		SinOsc.kr(\phase.kr([0, 0, 0, 0, 0])).range(0, 2pi)
+	)
+}
 )
 
 // out mixer: mix down to 2 channels and spread channels across panorama

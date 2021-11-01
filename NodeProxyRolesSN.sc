@@ -23,8 +23,8 @@ NodeProxyRolesSN {
 
 		// manipulate nodes (grains) generated through a pattern (a Pbind) embedded in a NodeProxy
 		// pattern in NodeProxy will not be traceable!!
-		AbstractPlayControl.proxyControlClasses.put(\setp, StreamControl);
-		AbstractPlayControl.buildMethods.put(\setp,
+		AbstractPlayControl.proxyControlClasses.put(\setm, StreamControl);
+		AbstractPlayControl.buildMethods.put(\setm,
 			#{ |pattern, proxy, channelOffset = 0, index|
 				var subMsg, id, synthDef, args;
 				args = pattern.patternpairs.asEvent.keys.asArray;

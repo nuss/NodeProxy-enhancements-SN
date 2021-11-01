@@ -1,0 +1,5 @@
+TITLE:: NodeProxy enhancements
+SUMMARY:: additional NodeProxy methods and roles
+CATEGORIES:: NodeProxy, ProxySpace
+
+As of now strong::NodeProxy enhancements:: provide a link::Classes/NodeProxy#-seti:: method and two additional link::Classes/NodeProxyRolesSN##NodeProxy roles::, code::seti:: and code::setm::.

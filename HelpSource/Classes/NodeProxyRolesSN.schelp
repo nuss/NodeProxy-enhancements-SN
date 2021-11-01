@@ -1,5 +1,5 @@
 TITLE:: NodeProxyRolesSN
-summary:: A utility class for NodeProxy, providing additional NodeProxy roles
+summary:: A utility class for NodeProxy, defining additional NodeProxy roles
 categories:: NodeProxy, NodeProxy roles
 related:: Classes/NodeProxy, Reference/NodeProxy_roles
 
@@ -73,7 +73,7 @@ Pdef(\simple,
 	Ppar({ |i|
 		Pbind(
 			\instrument, \simple,
-			\freq, a + i.log,
+			\freq, a + i,
 			\dur, Pwrand(#[0.1, 0.2, 0.3, 0.7], [13, 8, 3, 5].normalize, inf),
 			\channelOffset, i
 		)

@@ -54,7 +54,9 @@ Ndef(\sin).numChannels.do({ |i|
 ::
 
 ## \setm -> event pattern
-|| This role is different in so far as it operates on nodes produced by a pattern as if they where constantly running synths. I.e. their controls are set like in a link::Classes/Pmono:: for as long as the node is living. Running pattern's and the role's own timing are completely
+|| This role is different in so far as it can operate on nodes produced by a pattern (playing in a link::Classes/PatternPlayer::) as if they where constantly running synths. I.e. their controls are set like in a link::Classes/Pmono:: for as long as the node is living. Running pattern's and the role's own timing are independently defined by whatever is in the Pdef on the one hand and the code::\setm::'s associated Pbind on the other.
+NOTE::A similar thing may be achieved by providing a link::Classes/Group:: to each link::Classes/Pbind:: in the link::Classes/Pdef::. This way controls within each grain produced within a Pbind can be set like one can set a specific control within a continously playing link::Classes/Synth::.
+::
 
 code::
 // mono SynthDef with a gate
@@ -73,8 +75,8 @@ Pdef(\simple,
 	Ppar({ |i|
 		Pbind(
 			\instrument, \simple,
-			\freq, a + i,
-			\dur, Pwrand(#[0.1, 0.2, 0.3, 0.7], [13, 8, 3, 5].normalize, inf),
+			\freq, Pseq(#[67, 43, 60, 62, 71].midicps, inf),
+			\dur, Prand(#[1, 2, 3, 7], inf),
 			\channelOffset, i
 		)
 	} ! 5)
@@ -88,7 +90,7 @@ Ndef(\simple)[0] = Pdef(\simple);
 
 // spread over stereo panorama
 Ndef(\out, { Splay.ar(\in.ar(0!5)) });
-Ndef(\out) <<> Ndef(\simple)
+Ndef(\out) <<> Ndef(\simple);
 Ndef(\out).play
 )
 
@@ -97,9 +99,9 @@ Ndef(\out).play
 5.do { |i|
 	Ndef(\simple)[i+1] = \setm -> Pbind(
 		\freq, Pwhite(100.0, 500.0),
-		\sawfreq, Pwhite(100.0, 500.0),
-		\which, Pwhite(0.0, 1.0),
-		\dur, Pwrand(#[0.3, 0.2, 0.1, 5.0, 0.7], [4, 7, 10, 23, 3].normalize, inf),
+		\sawfreq, Prand([67, 43, 60, 62, 71].midicps, inf),
+		\which, Pwhite(0.3, 1.0),
+		\dur, Prand(#[3, 0.2, 0.01, 5.0, 0.7], inf),<
 		\channelOffset, i
 	)
 }

@@ -6,17 +6,9 @@
 
 		forBy(0, args.size-1, 3, { |i|
 			key = args[i];
-			offset = args[i+1];
-			value = args[i+2];
+			offset = args[i+1].asArray;
+			value = args[i+2].asArray;
 			hasControlKey = this.controlKeys.includes(key);
-
-			if (offset.isInteger) {
-				offset = [offset]
-			};
-
-			if (value.isNil or:{ value.isNumber }) {
-				value = [value]
-			};
 
 			if (hasControlKey) {
 				controlKeysValues = this.controlKeysValues;

@@ -31,4 +31,14 @@ TestNodeProxySeti : UnitTest {
 		keysValues = proxy.getKeysValues;
 		this.assertEquals(keysValues[0][1], [200, 345, 345, 145, 200], "the 'freq' arg array should have been set to [200, 345, 345, 145, 200] in NodeProxy 'proxy'.");
 	}
+
+	test_seti_nodeMap {
+		var controlProxy, keysValues;
+		controlProxy = NodeProxy.control(server, 1);
+		controlProxy.source = { DC.kr };
+		proxy.seti(\freq, 2, controlProxy);
+		keysValues = proxy.getKeysValues;
+		this.assertEquals(keysValues[0][1], [200, 200, controlProxy, 200, 200], "the third slot in the 'freq' arg array should have been set to NodeProxy.control(server, 1)");
+		controlProxy.clear;
+	}
 }
